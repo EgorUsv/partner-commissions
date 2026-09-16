@@ -1,0 +1,80 @@
+## Build
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+.artifacts/
+*.binlog
+MSBuild_Logs/
+
+## Visual Studio / VS Code / Rider / Cursor
+.vs/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.rsuser
+*.sln.docstates
+*.DotSettings.user
+.ntvs_analysis.dat
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+.ionide/
+
+## NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+
+## Tests and coverage
+[Tt]est[Rr]esult*/
+*.trx
+TestResult.xml
+nunit-*.xml
+*.VisualState.xml
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+*.received.*
+BenchmarkDotNet.Artifacts/
+
+## Secrets and local config
+*.env
+*.env.*
+!.env.example
+appsettings.*.local.json
+secrets.json
+*.pfx
+*.publishsettings
+*.pubxml
+*.azurePubxml
+PublishScripts/
+
+## EF / SQL local files
+*.mdf
+*.ldf
+*.ndf
+
+## OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+## Docker / local runtime
+docker-compose.override.yml
+*.log
+healthchecksdb

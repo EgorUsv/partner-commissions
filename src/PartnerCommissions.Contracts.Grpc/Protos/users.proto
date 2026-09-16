@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "PartnerCommissions.Contracts.Grpc";
+
+package partnercommissions.users;
+
+service UserInviters {
+  rpc GetInviters (GetInvitersRequest) returns (GetInvitersReply);
+}
+
+message GetInvitersRequest {
+  string external_id = 1;
+}
+
+message Inviter {
+  string external_id = 1;
+  int32 level = 2;
+}
+
+message GetInvitersReply {
+  repeated Inviter inviters = 1;
+}
