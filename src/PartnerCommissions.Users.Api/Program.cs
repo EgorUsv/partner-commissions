@@ -13,6 +13,7 @@ builder.Services.Configure<UsersOptions>(builder.Configuration.GetSection(UsersO
 var connectionString = builder.Configuration.GetConnectionString(UsersOptions.SectionName)
     ?? throw new InvalidOperationException("Database connection string is missing.");
 builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddSingleton<IUtcTime, UtcTime>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUsersAppService, UsersAppService>();
 builder.Services.AddGrpc();

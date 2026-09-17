@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "PartnerCommissions.Contracts.Grpc";
+
+package partnercommissions.commissions;
+
+service CommissionPayouts {
+  rpc GetUnpaid (GetUnpaidRequest) returns (GetUnpaidReply);
+  rpc AckPaid (AckPaidRequest) returns (AckPaidReply);
+}
+
+message GetUnpaidRequest {
+  int32 limit = 1;
+  int32 claim_timeout_seconds = 2;
+}
+
+message UnpaidCommission {
+  string id = 1;
+  string partner_external_id = 2;
+  string amount = 3;
+  string event_operation_id = 4;
+}
+
+message GetUnpaidReply {
+  repeated UnpaidCommission commissions = 1;
+}
+
+message AckPaidRequest {
+  repeated string ids = 1;
+}
+
+message AckPaidReply {
+}

@@ -2,5 +2,6 @@
   <Folder Name="/src/">
     <Project Path="src/PartnerCommissions.Contracts.Grpc/PartnerCommissions.Contracts.Grpc.csproj" />
     <Project Path="src/PartnerCommissions.Users.Api/PartnerCommissions.Users.Api.csproj" />
+    <Project Path="src/PartnerCommissions.Commissions.Api/PartnerCommissions.Commissions.Api.csproj" />
   </Folder>
 </Solution>
