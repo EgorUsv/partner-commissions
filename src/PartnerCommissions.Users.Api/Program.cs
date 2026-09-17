@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PartnerCommissions.Users.Api.Endpoints;
 using PartnerCommissions.Users.Api.Grpc;
-using PartnerCommissions.Users.Api.Health;
 using PartnerCommissions.Users.Api.Hosting;
 using PartnerCommissions.Users.Api.Options;
 using PartnerCommissions.Users.Api.Services;

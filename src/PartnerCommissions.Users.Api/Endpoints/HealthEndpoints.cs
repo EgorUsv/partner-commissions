@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PartnerCommissions.Users.Infrastructure;
 
-namespace PartnerCommissions.Users.Api.Health;
+namespace PartnerCommissions.Users.Api.Endpoints;
 
 public static class HealthEndpoints
 {
