@@ -1,0 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using PartnerCommissions.Wallets.Infrastructure;
+
+namespace PartnerCommissions.Wallets.Api.Endpoints;
+
+public static class HealthEndpoints
+{
+    public sealed record Report(bool Live, bool Ready);
+
+    public static IEndpointRouteBuilder MapHealthApi(this IEndpointRouteBuilder app)
+    {
+        app.MapGet("/health", CheckAsync);
+        return app;
+    }
+
+    private static async Task<IResult> CheckAsync(WalletsDbContext db, CancellationToken cancellationToken)
+    {
+        var ready = await db.Database.CanConnectAsync(cancellationToken);
+        var report = new Report(Live: true, Ready: ready);
+        return TypedResults.Json(
+            report,
+            statusCode: ready ? StatusCodes.Status200OK : StatusCodes.Status503ServiceUnavailable);
+    }
+}
