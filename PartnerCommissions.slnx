@@ -5,4 +5,7 @@
     <Project Path="src/PartnerCommissions.Commissions.Api/PartnerCommissions.Commissions.Api.csproj" />
     <Project Path="src/PartnerCommissions.Wallets.Api/PartnerCommissions.Wallets.Api.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PartnerCommissions.Commissions.Api.Tests/PartnerCommissions.Commissions.Api.Tests.csproj" />
+  </Folder>
 </Solution>
