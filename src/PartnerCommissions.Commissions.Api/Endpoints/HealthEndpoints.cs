@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using PartnerCommissions.Commissions.Infrastructure;
 
 namespace PartnerCommissions.Commissions.Api.Endpoints;

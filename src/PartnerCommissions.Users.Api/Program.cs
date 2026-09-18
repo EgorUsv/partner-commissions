@@ -6,6 +6,7 @@ using PartnerCommissions.Users.Api.Options;
 using PartnerCommissions.Users.Api.Services;
 using PartnerCommissions.Users.Domain;
 using PartnerCommissions.Users.Infrastructure;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,11 @@ if (args is ["migrate"])
     await scope.ServiceProvider.GetRequiredService<UsersDbContext>().Database.MigrateAsync();
     return;
 }
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 builder.Services.Configure<UsersOptions>(builder.Configuration.GetSection(UsersOptions.SectionName));
 builder.Services.AddSingleton<IUtcTime, UtcTime>();
