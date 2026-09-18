@@ -134,19 +134,16 @@ internal sealed class CommissionRepository(
 
         await db.SaveChangesAsync(cancellationToken);
 
-        var eventIds = claimed.Select(x => x.EventId).Distinct().ToList();
+        var eventIds = claimed.Select(x => x.EventId).ToHashSet();
         var operationByEvent = await db.Events
             .Where(x => eventIds.Contains(x.Id))
             .ToDictionaryAsync(x => x.Id, x => x.OperationId, cancellationToken);
 
-        var unpaid = claimed
-            .OrderBy(x => x.Id)
-            .Select(x => new UnpaidCommission(
-                x.Id,
-                x.PartnerExternalId,
-                x.Amount,
-                operationByEvent[x.EventId]))
-            .ToList();
+        var unpaid = claimed.ConvertAll(x => new UnpaidCommission(
+            x.Id,
+            x.PartnerExternalId,
+            x.Amount,
+            operationByEvent[x.EventId]));
 
         await transaction.CommitAsync(cancellationToken);
         return unpaid;
