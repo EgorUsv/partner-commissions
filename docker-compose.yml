@@ -1,0 +1,110 @@
+name: partner-commissions
+
+services:
+  postgres-users:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: users
+    ports:
+      - "5432:5432"
+    volumes:
+      - users-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d users"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+
+  postgres-commissions:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: commissions
+    ports:
+      - "5433:5432"
+    volumes:
+      - commissions-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d commissions"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+
+  postgres-wallets:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: wallets
+    ports:
+      - "5434:5432"
+    volumes:
+      - wallets-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d wallets"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+
+  users-api:
+    image: partner-commissions-users
+    build:
+      context: .
+      args:
+        PROJECT_PATH: src/PartnerCommissions.Users.Api/PartnerCommissions.Users.Api.csproj
+    command: ["PartnerCommissions.Users.Api.dll"]
+    ports:
+      - "8081:8081"
+      - "8181:8181"
+    environment:
+      ConnectionStrings__Users: Host=postgres-users;Port=5432;Database=users;Username=postgres;Password=postgres
+    depends_on:
+      postgres-users:
+        condition: service_healthy
+    pre_start:
+      - command: ["PartnerCommissions.Users.Api.dll", "migrate"]
+
+  commissions-api:
+    image: partner-commissions-commissions
+    build:
+      context: .
+      args:
+        PROJECT_PATH: src/PartnerCommissions.Commissions.Api/PartnerCommissions.Commissions.Api.csproj
+    command: ["PartnerCommissions.Commissions.Api.dll"]
+    ports:
+      - "8082:8082"
+      - "8182:8182"
+    environment:
+      ConnectionStrings__Commissions: Host=postgres-commissions;Port=5432;Database=commissions;Username=postgres;Password=postgres
+      Users__GrpcAddress: http://users-api:8181
+    depends_on:
+      postgres-commissions:
+        condition: service_healthy
+    pre_start:
+      - command: ["PartnerCommissions.Commissions.Api.dll", "migrate"]
+
+  wallets-api:
+    image: partner-commissions-wallets
+    build:
+      context: .
+      args:
+        PROJECT_PATH: src/PartnerCommissions.Wallets.Api/PartnerCommissions.Wallets.Api.csproj
+    command: ["PartnerCommissions.Wallets.Api.dll"]
+    ports:
+      - "8083:8083"
+    environment:
+      ConnectionStrings__Wallets: Host=postgres-wallets;Port=5432;Database=wallets;Username=postgres;Password=postgres
+      Commissions__GrpcAddress: http://commissions-api:8182
+    depends_on:
+      postgres-wallets:
+        condition: service_healthy
+    pre_start:
+      - command: ["PartnerCommissions.Wallets.Api.dll", "migrate"]
+
+volumes:
+  users-data:
+  commissions-data:
+  wallets-data:

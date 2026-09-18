@@ -1,0 +1,11 @@
+.git
+.vs
+**/.vs
+**/bin
+**/obj
+**/*.user
+**/*.suo
+**/out
+**/.idea
+**/*.mdf
+**/*.ldf

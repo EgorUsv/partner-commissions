@@ -8,11 +8,20 @@ using PartnerCommissions.Users.Domain;
 using PartnerCommissions.Users.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.Configure<UsersOptions>(builder.Configuration.GetSection(UsersOptions.SectionName));
 
 var connectionString = builder.Configuration.GetConnectionString(UsersOptions.SectionName)
     ?? throw new InvalidOperationException("Database connection string is missing.");
 builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(connectionString));
+
+if (args is ["migrate"])
+{
+    await using var migrator = builder.Build();
+    await using var scope = migrator.Services.CreateAsyncScope();
+    await scope.ServiceProvider.GetRequiredService<UsersDbContext>().Database.MigrateAsync();
+    return;
+}
+
+builder.Services.Configure<UsersOptions>(builder.Configuration.GetSection(UsersOptions.SectionName));
 builder.Services.AddSingleton<IUtcTime, UtcTime>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUsersAppService, UsersAppService>();

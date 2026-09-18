@@ -11,15 +11,22 @@ using PartnerCommissions.Commissions.Api.Services.Commissions;
 using PartnerCommissions.Commissions.Api.Services.Calculator;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.Configure<CommissionsOptions>(builder.Configuration.GetSection(CommissionsOptions.SectionName));
-builder.Services.Configure<UsersGrpcOptions>(builder.Configuration.GetSection(UsersGrpcOptions.SectionName));
 
 var connectionString = builder.Configuration.GetConnectionString(CommissionsOptions.SectionName)
     ?? throw new InvalidOperationException("Database connection string is missing.");
-
 builder.Services.AddDbContext<CommissionsDbContext>(options =>
     options.UseNpgsql(connectionString).UseQueryLocks());
 
+if (args is ["migrate"])
+{
+    await using var migrator = builder.Build();
+    await using var scope = migrator.Services.CreateAsyncScope();
+    await scope.ServiceProvider.GetRequiredService<CommissionsDbContext>().Database.MigrateAsync();
+    return;
+}
+
+builder.Services.Configure<CommissionsOptions>(builder.Configuration.GetSection(CommissionsOptions.SectionName));
+builder.Services.Configure<UsersGrpcOptions>(builder.Configuration.GetSection(UsersGrpcOptions.SectionName));
 builder.Services.AddSingleton<IUtcTime, UtcTime>();
 builder.Services.AddSingleton<ICommissionCalculator, CommissionCalculator>();
 builder.Services.AddScoped<ICommissionRepository, CommissionRepository>();

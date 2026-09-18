@@ -11,15 +11,22 @@ using PartnerCommissions.Wallets.Domain;
 using PartnerCommissions.Wallets.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.Configure<WalletsOptions>(builder.Configuration.GetSection(WalletsOptions.SectionName));
-builder.Services.Configure<CommissionsGrpcOptions>(builder.Configuration.GetSection(CommissionsGrpcOptions.SectionName));
 
 var connectionString = builder.Configuration.GetConnectionString(WalletsOptions.SectionName)
     ?? throw new InvalidOperationException("Database connection string is missing.");
-
 builder.Services.AddDbContext<WalletsDbContext>(options =>
     options.UseNpgsql(connectionString).UseQueryLocks());
 
+if (args is ["migrate"])
+{
+    await using var migrator = builder.Build();
+    await using var scope = migrator.Services.CreateAsyncScope();
+    await scope.ServiceProvider.GetRequiredService<WalletsDbContext>().Database.MigrateAsync();
+    return;
+}
+
+builder.Services.Configure<WalletsOptions>(builder.Configuration.GetSection(WalletsOptions.SectionName));
+builder.Services.Configure<CommissionsGrpcOptions>(builder.Configuration.GetSection(CommissionsGrpcOptions.SectionName));
 builder.Services.AddSingleton<IUtcTime, UtcTime>();
 builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<ICommissionPayouts, CommissionPayoutsService>();
