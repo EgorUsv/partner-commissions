@@ -1,4 +1,4 @@
-namespace PartnerCommissions.Commissions.Infrastructure.Models;
+namespace PartnerCommissions.Commissions.Api.Infrastructure.Models;
 
 public sealed class Event
 {

@@ -1,6 +1,6 @@
-using PartnerCommissions.Users.Infrastructure.Models;
+using PartnerCommissions.Users.Api.Infrastructure.Models;
 
-namespace PartnerCommissions.Users.Domain;
+namespace PartnerCommissions.Users.Api.Domain;
 
 public interface IUserRepository
 {

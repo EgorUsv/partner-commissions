@@ -1,10 +1,10 @@
 using EFCore.PostgresExtensions.Enums;
 using EFCore.PostgresExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
-using PartnerCommissions.Commissions.Domain;
-using PartnerCommissions.Commissions.Infrastructure.Models;
+using PartnerCommissions.Commissions.Api.Domain;
+using PartnerCommissions.Commissions.Api.Infrastructure.Models;
 
-namespace PartnerCommissions.Commissions.Infrastructure;
+namespace PartnerCommissions.Commissions.Api.Infrastructure;
 
 internal sealed class CommissionRepository(
     CommissionsDbContext db,

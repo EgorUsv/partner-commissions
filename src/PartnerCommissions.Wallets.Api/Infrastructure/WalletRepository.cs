@@ -1,10 +1,10 @@
 using EFCore.PostgresExtensions.Enums;
 using EFCore.PostgresExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
-using PartnerCommissions.Wallets.Domain;
-using PartnerCommissions.Wallets.Infrastructure.Models;
+using PartnerCommissions.Wallets.Api.Domain;
+using PartnerCommissions.Wallets.Api.Infrastructure.Models;
 
-namespace PartnerCommissions.Wallets.Infrastructure;
+namespace PartnerCommissions.Wallets.Api.Infrastructure;
 
 internal sealed class WalletRepository(
     WalletsDbContext db,

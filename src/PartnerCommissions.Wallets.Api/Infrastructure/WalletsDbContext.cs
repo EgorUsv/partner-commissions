@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.ValueGeneration;
-using PartnerCommissions.Wallets.Infrastructure.Models;
+using PartnerCommissions.Wallets.Api.Infrastructure.Models;
 
-namespace PartnerCommissions.Wallets.Infrastructure;
+namespace PartnerCommissions.Wallets.Api.Infrastructure;
 
 public sealed class WalletsDbContext(DbContextOptions<WalletsDbContext> options) : DbContext(options)
 {

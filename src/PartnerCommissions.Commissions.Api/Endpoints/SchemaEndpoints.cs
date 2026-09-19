@@ -1,6 +1,5 @@
-using PartnerCommissions.Commissions.Api.Services.Commissions;
-using PartnerCommissions.Commissions.Domain;
-using PartnerCommissions.Contracts.Commissions;
+using PartnerCommissions.Commissions.Api.Application;
+using PartnerCommissions.Commissions.Api.Domain;
 
 namespace PartnerCommissions.Commissions.Api.Endpoints;
 

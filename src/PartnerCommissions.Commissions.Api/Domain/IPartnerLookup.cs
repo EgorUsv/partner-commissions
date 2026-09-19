@@ -1,4 +1,4 @@
-namespace PartnerCommissions.Commissions.Domain;
+namespace PartnerCommissions.Commissions.Api.Domain;
 
 public interface IPartnerLookup
 {

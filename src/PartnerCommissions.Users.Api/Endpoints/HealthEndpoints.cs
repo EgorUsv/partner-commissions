@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using PartnerCommissions.Users.Infrastructure;
+using PartnerCommissions.Users.Api.Infrastructure;
 
 namespace PartnerCommissions.Users.Api.Endpoints;
 

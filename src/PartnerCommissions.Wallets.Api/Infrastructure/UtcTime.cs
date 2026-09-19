@@ -1,6 +1,6 @@
-using PartnerCommissions.Wallets.Domain;
+using PartnerCommissions.Wallets.Api.Domain;
 
-namespace PartnerCommissions.Wallets.Infrastructure;
+namespace PartnerCommissions.Wallets.Api.Infrastructure;
 
 internal sealed class UtcTime : IUtcTime
 {

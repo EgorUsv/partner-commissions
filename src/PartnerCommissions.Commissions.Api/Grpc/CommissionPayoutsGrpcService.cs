@@ -1,8 +1,8 @@
 using System.Globalization;
 using Grpc.Core;
-using PartnerCommissions.Commissions.Api.Logging;
-using PartnerCommissions.Commissions.Api.Services.Commissions;
-using PartnerCommissions.Commissions.Domain;
+using PartnerCommissions.Commissions.Api.Hosting;
+using PartnerCommissions.Commissions.Api.Application;
+using PartnerCommissions.Commissions.Api.Domain;
 using PartnerCommissions.Contracts.Grpc;
 
 namespace PartnerCommissions.Commissions.Api.Grpc;

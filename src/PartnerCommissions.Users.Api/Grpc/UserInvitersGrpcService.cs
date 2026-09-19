@@ -1,14 +1,14 @@
 using System.Globalization;
 using Grpc.Core;
 using PartnerCommissions.Contracts.Grpc;
-using PartnerCommissions.Users.Api.Logging;
-using PartnerCommissions.Users.Api.Services;
-using PartnerCommissions.Users.Domain;
+using PartnerCommissions.Users.Api.Hosting;
+using PartnerCommissions.Users.Api.Application;
+using PartnerCommissions.Users.Api.Domain;
 
 namespace PartnerCommissions.Users.Api.Grpc;
 
 public sealed class UserInvitersGrpcService(
-    IUsersAppService users,
+    IUsersService users,
     ILogger<UserInvitersGrpcService> logger) : UserInviters.UserInvitersBase
 {
     public override async Task<GetInvitersReply> GetInviters(

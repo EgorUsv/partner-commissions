@@ -1,10 +1,8 @@
 using Microsoft.Extensions.Logging.Abstractions;
-using PartnerCommissions.Commissions.Api.Options;
-using PartnerCommissions.Commissions.Api.Services.Calculator;
-using PartnerCommissions.Commissions.Api.Services.Commissions;
-using PartnerCommissions.Commissions.Domain;
-using PartnerCommissions.Commissions.Infrastructure;
-using PartnerCommissions.Commissions.Infrastructure.Models;
+using PartnerCommissions.Commissions.Api.Application;
+using PartnerCommissions.Commissions.Api.Domain;
+using PartnerCommissions.Commissions.Api.Hosting;
+using PartnerCommissions.Commissions.Api.Infrastructure.Models;
 
 namespace PartnerCommissions.Commissions.Api.Tests;
 

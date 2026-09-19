@@ -1,6 +1,5 @@
-using PartnerCommissions.Contracts.Users;
-using PartnerCommissions.Users.Api.Services;
-using PartnerCommissions.Users.Domain;
+using PartnerCommissions.Users.Api.Application;
+using PartnerCommissions.Users.Api.Domain;
 
 namespace PartnerCommissions.Users.Api.Endpoints;
 
@@ -16,7 +15,7 @@ public static class UsersEndpoints
 
     private static async Task<IResult> CreateAsync(
         CreateUserRequest? request,
-        IUsersAppService users,
+        IUsersService users,
         CancellationToken cancellationToken)
     {
         var externalId = await users.CreateAsync(request?.InviterId, cancellationToken);
@@ -26,7 +25,7 @@ public static class UsersEndpoints
     private static async Task<IResult> GetTreeAsync(
         Guid externalId,
         TreeDirection direction,
-        IUsersAppService users,
+        IUsersService users,
         CancellationToken cancellationToken)
     {
         var nodes = await users.GetTreeAsync(externalId, direction, cancellationToken);

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using PartnerCommissions.Wallets.Api.Logging;
-using PartnerCommissions.Wallets.Domain;
+using PartnerCommissions.Wallets.Api.Domain;
 
 namespace PartnerCommissions.Wallets.Api.Hosting;
 

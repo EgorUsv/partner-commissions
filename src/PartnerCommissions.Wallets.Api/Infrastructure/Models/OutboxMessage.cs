@@ -1,4 +1,4 @@
-namespace PartnerCommissions.Wallets.Infrastructure.Models;
+namespace PartnerCommissions.Wallets.Api.Infrastructure.Models;
 
 public sealed class OutboxMessage
 {

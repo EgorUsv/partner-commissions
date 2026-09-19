@@ -1,4 +1,4 @@
-namespace PartnerCommissions.Wallets.Domain;
+namespace PartnerCommissions.Wallets.Api.Domain;
 
 public sealed record UnpaidCommission(
     Guid Id,

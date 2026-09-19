@@ -1,6 +1,6 @@
-using PartnerCommissions.Users.Domain;
+using PartnerCommissions.Users.Api.Domain;
 
-namespace PartnerCommissions.Users.Infrastructure;
+namespace PartnerCommissions.Users.Api.Infrastructure;
 
 internal sealed class UtcTime : IUtcTime
 {

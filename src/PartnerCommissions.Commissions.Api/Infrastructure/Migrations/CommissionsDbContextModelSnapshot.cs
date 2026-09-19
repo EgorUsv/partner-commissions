@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using PartnerCommissions.Commissions.Infrastructure;
+using PartnerCommissions.Commissions.Api.Infrastructure;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace PartnerCommissions.Commissions.Api.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PartnerCommissions.Commissions.Infrastructure.Models.Commission", b =>
+            modelBuilder.Entity("PartnerCommissions.Commissions.Api.Infrastructure.Models.Commission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +61,7 @@ namespace PartnerCommissions.Commissions.Api.Infrastructure.Migrations
                     b.ToTable("commissions", (string)null);
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Commissions.Infrastructure.Models.Event", b =>
+            modelBuilder.Entity("PartnerCommissions.Commissions.Api.Infrastructure.Models.Event", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +89,7 @@ namespace PartnerCommissions.Commissions.Api.Infrastructure.Migrations
                     b.ToTable("events", (string)null);
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Commissions.Infrastructure.Models.SchemaSetting", b =>
+            modelBuilder.Entity("PartnerCommissions.Commissions.Api.Infrastructure.Models.SchemaSetting", b =>
                 {
                     b.Property<string>("SchemaType")
                         .HasColumnType("text");
@@ -118,9 +118,9 @@ namespace PartnerCommissions.Commissions.Api.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Commissions.Infrastructure.Models.Commission", b =>
+            modelBuilder.Entity("PartnerCommissions.Commissions.Api.Infrastructure.Models.Commission", b =>
                 {
-                    b.HasOne("PartnerCommissions.Commissions.Infrastructure.Models.Event", null)
+                    b.HasOne("PartnerCommissions.Commissions.Api.Infrastructure.Models.Event", null)
                         .WithMany()
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Restrict)

@@ -1,6 +1,6 @@
-using PartnerCommissions.Commissions.Domain;
+using PartnerCommissions.Commissions.Api.Domain;
 
-namespace PartnerCommissions.Commissions.Infrastructure.Models;
+namespace PartnerCommissions.Commissions.Api.Infrastructure.Models;
 
 public sealed class Commission
 {

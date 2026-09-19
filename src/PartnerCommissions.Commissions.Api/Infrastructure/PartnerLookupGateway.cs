@@ -1,10 +1,10 @@
 using Grpc.Core;
 using Polly.CircuitBreaker;
 using Polly.Timeout;
-using PartnerCommissions.Commissions.Domain;
+using PartnerCommissions.Commissions.Api.Domain;
 using PartnerCommissions.Contracts.Grpc;
 
-namespace PartnerCommissions.Commissions.Infrastructure;
+namespace PartnerCommissions.Commissions.Api.Infrastructure;
 
 internal sealed class PartnerLookupGateway(UserInviters.UserInvitersClient client) : IPartnerLookup
 {

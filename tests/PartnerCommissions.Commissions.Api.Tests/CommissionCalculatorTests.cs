@@ -1,5 +1,4 @@
-using PartnerCommissions.Commissions.Api.Services.Calculator;
-using PartnerCommissions.Commissions.Domain;
+using PartnerCommissions.Commissions.Api.Domain;
 
 namespace PartnerCommissions.Commissions.Api.Tests;
 

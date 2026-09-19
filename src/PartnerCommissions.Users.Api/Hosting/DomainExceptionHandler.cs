@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using PartnerCommissions.Users.Api.Logging;
-using PartnerCommissions.Users.Domain;
+using PartnerCommissions.Users.Api.Domain;
 
 namespace PartnerCommissions.Users.Api.Hosting;
 

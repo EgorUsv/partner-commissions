@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using PartnerCommissions.Users.Domain;
-using PartnerCommissions.Users.Infrastructure.Models;
+using PartnerCommissions.Users.Api.Domain;
+using PartnerCommissions.Users.Api.Infrastructure.Models;
 
-namespace PartnerCommissions.Users.Infrastructure;
+namespace PartnerCommissions.Users.Api.Infrastructure;
 
 internal sealed class UserRepository(UsersDbContext db) : IUserRepository
 {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using PartnerCommissions.Users.Infrastructure;
+using PartnerCommissions.Users.Api.Infrastructure;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace PartnerCommissions.Users.Api.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PartnerCommissions.Users.Infrastructure.Models.User", b =>
+            modelBuilder.Entity("PartnerCommissions.Users.Api.Infrastructure.Models.User", b =>
                 {
                     b.Property<Guid>("ExternalId")
                         .ValueGeneratedOnAdd()
@@ -38,7 +38,7 @@ namespace PartnerCommissions.Users.Api.Infrastructure.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Users.Infrastructure.Models.InviterTreeRow", b =>
+            modelBuilder.Entity("PartnerCommissions.Users.Api.Infrastructure.Models.InviterTreeRow", b =>
                 {
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uuid")
@@ -55,9 +55,9 @@ namespace PartnerCommissions.Users.Api.Infrastructure.Migrations
                     b.ToTable((string)null);
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Users.Infrastructure.Models.User", b =>
+            modelBuilder.Entity("PartnerCommissions.Users.Api.Infrastructure.Models.User", b =>
                 {
-                    b.HasOne("PartnerCommissions.Users.Infrastructure.Models.User", null)
+                    b.HasOne("PartnerCommissions.Users.Api.Infrastructure.Models.User", null)
                         .WithMany()
                         .HasForeignKey("InviterId")
                         .OnDelete(DeleteBehavior.Restrict);

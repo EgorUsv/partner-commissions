@@ -1,4 +1,4 @@
-using PartnerCommissions.Commissions.Infrastructure;
+using PartnerCommissions.Commissions.Api.Infrastructure;
 
 namespace PartnerCommissions.Commissions.Api.Endpoints;
 

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace PartnerCommissions.Wallets.Domain;
+namespace PartnerCommissions.Wallets.Api.Domain;
 
 public abstract class DomainException : Exception
 {

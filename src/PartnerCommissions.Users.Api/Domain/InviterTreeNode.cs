@@ -1,3 +1,3 @@
-namespace PartnerCommissions.Users.Domain;
+namespace PartnerCommissions.Users.Api.Domain;
 
 public sealed record InviterTreeNode(Guid ExternalId, Guid? InviterId, int Level);

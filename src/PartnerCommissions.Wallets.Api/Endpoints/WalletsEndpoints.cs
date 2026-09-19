@@ -1,5 +1,4 @@
-using PartnerCommissions.Contracts.Wallets;
-using PartnerCommissions.Wallets.Api.Services.Wallets;
+using PartnerCommissions.Wallets.Api.Application;
 
 namespace PartnerCommissions.Wallets.Api.Endpoints;
 

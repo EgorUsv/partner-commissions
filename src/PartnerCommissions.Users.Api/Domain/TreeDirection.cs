@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace PartnerCommissions.Users.Domain;
+namespace PartnerCommissions.Users.Api.Domain;
 
 public enum TreeDirection
 {

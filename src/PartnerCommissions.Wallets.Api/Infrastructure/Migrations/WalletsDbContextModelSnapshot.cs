@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using PartnerCommissions.Wallets.Infrastructure;
+using PartnerCommissions.Wallets.Api.Infrastructure;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace PartnerCommissions.Wallets.Api.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PartnerCommissions.Wallets.Infrastructure.Models.OutboxMessage", b =>
+            modelBuilder.Entity("PartnerCommissions.Wallets.Api.Infrastructure.Models.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace PartnerCommissions.Wallets.Api.Infrastructure.Migrations
                     b.ToTable("outbox", (string)null);
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Wallets.Infrastructure.Models.Payout", b =>
+            modelBuilder.Entity("PartnerCommissions.Wallets.Api.Infrastructure.Models.Payout", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,7 +80,7 @@ namespace PartnerCommissions.Wallets.Api.Infrastructure.Migrations
                     b.ToTable("payouts", (string)null);
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Wallets.Infrastructure.Models.Wallet", b =>
+            modelBuilder.Entity("PartnerCommissions.Wallets.Api.Infrastructure.Models.Wallet", b =>
                 {
                     b.Property<Guid>("PartnerExternalId")
                         .HasColumnType("uuid");
@@ -93,9 +93,9 @@ namespace PartnerCommissions.Wallets.Api.Infrastructure.Migrations
                     b.ToTable("wallets", (string)null);
                 });
 
-            modelBuilder.Entity("PartnerCommissions.Wallets.Infrastructure.Models.Payout", b =>
+            modelBuilder.Entity("PartnerCommissions.Wallets.Api.Infrastructure.Models.Payout", b =>
                 {
-                    b.HasOne("PartnerCommissions.Wallets.Infrastructure.Models.Wallet", null)
+                    b.HasOne("PartnerCommissions.Wallets.Api.Infrastructure.Models.Wallet", null)
                         .WithMany()
                         .HasForeignKey("PartnerExternalId")
                         .OnDelete(DeleteBehavior.Restrict)

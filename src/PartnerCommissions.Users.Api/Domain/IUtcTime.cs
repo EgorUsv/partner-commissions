@@ -1,4 +1,4 @@
-namespace PartnerCommissions.Users.Domain;
+namespace PartnerCommissions.Users.Api.Domain;
 
 public interface IUtcTime
 {

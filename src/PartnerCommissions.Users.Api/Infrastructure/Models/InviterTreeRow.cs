@@ -1,4 +1,4 @@
-namespace PartnerCommissions.Users.Infrastructure.Models;
+namespace PartnerCommissions.Users.Api.Infrastructure.Models;
 
 public sealed class InviterTreeRow
 {

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using PartnerCommissions.Wallets.Infrastructure;
+using PartnerCommissions.Wallets.Api.Infrastructure;
 
 namespace PartnerCommissions.Wallets.Api.Endpoints;
 

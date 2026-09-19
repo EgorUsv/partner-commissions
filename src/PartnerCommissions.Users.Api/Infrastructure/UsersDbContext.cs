@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.ValueGeneration;
-using PartnerCommissions.Users.Infrastructure.Models;
+using PartnerCommissions.Users.Api.Infrastructure.Models;
 
-namespace PartnerCommissions.Users.Infrastructure;
+namespace PartnerCommissions.Users.Api.Infrastructure;
 
 public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options) : DbContext(options)
 {

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace PartnerCommissions.Users.Domain;
+namespace PartnerCommissions.Users.Api.Domain;
 
 public abstract class DomainException : Exception
 {

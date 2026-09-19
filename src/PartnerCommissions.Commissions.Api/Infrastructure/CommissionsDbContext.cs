@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.ValueGeneration;
-using PartnerCommissions.Commissions.Domain;
-using PartnerCommissions.Commissions.Infrastructure.Models;
+using PartnerCommissions.Commissions.Api.Domain;
+using PartnerCommissions.Commissions.Api.Infrastructure.Models;
 
-namespace PartnerCommissions.Commissions.Infrastructure;
+namespace PartnerCommissions.Commissions.Api.Infrastructure;
 
 public sealed class CommissionsDbContext(DbContextOptions<CommissionsDbContext> options) : DbContext(options)
 {
