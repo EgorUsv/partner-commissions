@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: users
+    static_configs:
+      - targets: ["users-api:8081"]
+  - job_name: commissions
+    static_configs:
+      - targets: ["commissions-api:8082"]
+  - job_name: wallets
+    static_configs:
+      - targets: ["wallets-api:8083"]

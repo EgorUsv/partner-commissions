@@ -1,0 +1,68 @@
+discovery.docker "api" {
+  host             = "unix:///var/run/docker.sock"
+  refresh_interval = "5s"
+}
+
+discovery.relabel "api" {
+  targets = discovery.docker.api.targets
+
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_project"]
+    regex         = "partner-commissions"
+    action        = "keep"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    regex         = "(users-api|commissions-api|wallets-api)"
+    action        = "keep"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    target_label  = "service"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container"
+  }
+}
+
+loki.source.docker "api" {
+  host             = "unix:///var/run/docker.sock"
+  targets          = discovery.relabel.api.output
+  relabel_rules    = discovery.relabel.api.rules
+  forward_to       = [loki.process.json.receiver]
+  refresh_interval = "5s"
+}
+
+loki.process "json" {
+  stage.json {
+    expressions = {
+      message  = "Message",
+      level    = "LogLevel",
+      category = "Category",
+    }
+  }
+
+  stage.labels {
+    values = {
+      level    = "",
+      category = "",
+    }
+  }
+
+  stage.output {
+    source = "message"
+  }
+
+  forward_to = [loki.write.loki.receiver]
+}
+
+loki.write "loki" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
