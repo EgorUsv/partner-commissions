@@ -1,3 +1,4 @@
+using OpenTelemetry.Metrics;
 using PartnerCommissions.Commissions.Api.Endpoints;
 using PartnerCommissions.Commissions.Api.Grpc;
 using PartnerCommissions.Commissions.Api.Hosting;
@@ -17,4 +18,5 @@ app.MapEventsApi();
 app.MapSchemaApi();
 app.MapGrpcService<CommissionPayoutsGrpcService>();
 app.MapHealthApi();
+app.MapPrometheusScrapingEndpoint();
 app.Run();

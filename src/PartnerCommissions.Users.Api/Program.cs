@@ -16,4 +16,5 @@ app.UseExceptionHandler();
 app.MapUsersApi();
 app.MapGrpcService<UserInvitersGrpcService>();
 app.MapHealthApi();
+app.MapPrometheusScrapingEndpoint();
 app.Run();

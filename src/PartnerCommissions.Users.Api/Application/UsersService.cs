@@ -8,7 +8,8 @@ namespace PartnerCommissions.Users.Api.Application;
 public sealed class UsersService(
     IUserRepository users,
     IOptions<UsersOptions> options,
-    ILogger<UsersService> logger) : IUsersService
+    ILogger<UsersService> logger,
+    IUsersMetrics metrics) : IUsersService
 {
     private readonly int _maxTreeDepth = options.Value.MaxTreeDepth;
 
@@ -29,6 +30,7 @@ public sealed class UsersService(
         await users.AddAsync(user, cancellationToken);
         await users.SaveChangesAsync(cancellationToken);
         logger.UserCreated(user.ExternalId, user.InviterId);
+        metrics.UserCreated();
         return user.ExternalId;
     }
 

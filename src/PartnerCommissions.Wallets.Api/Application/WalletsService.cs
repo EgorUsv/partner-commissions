@@ -10,7 +10,8 @@ public sealed class WalletsService(
     IWalletRepository wallets,
     ICommissionPayouts payouts,
     IOptions<WalletsOptions> options,
-    ILogger<WalletsService> logger) : IWalletsService
+    ILogger<WalletsService> logger,
+    IWalletsMetrics metrics) : IWalletsService
 {
     public Task<decimal> GetBalanceAsync(Guid partnerExternalId, CancellationToken cancellationToken)
     {
@@ -34,12 +35,14 @@ public sealed class WalletsService(
         if (unpaid.Count == 0)
         {
             logger.PayoutRunCompleted(0, 0, acked);
+            metrics.PayoutRun(0, 0, acked);
             return new PayoutRunResult(0, 0, acked);
         }
 
         var credit = await CreditWithRetryAsync(unpaid, cancellationToken);
         acked += await DrainOutboxAsync(settings.BatchLimit, settings.AckRetry, cancellationToken);
         logger.PayoutRunCompleted(credit.Credited, credit.AlreadyPaid, acked);
+        metrics.PayoutRun(credit.Credited, credit.AlreadyPaid, acked);
         return new PayoutRunResult(credit.Credited, credit.AlreadyPaid, acked);
     }
 

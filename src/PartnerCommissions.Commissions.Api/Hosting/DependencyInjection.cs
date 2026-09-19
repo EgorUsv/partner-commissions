@@ -1,5 +1,6 @@
 using EFCore.PostgresExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Metrics;
 using PartnerCommissions.Commissions.Api.Application;
 using PartnerCommissions.Commissions.Api.Domain;
 using PartnerCommissions.Commissions.Api.Infrastructure;
@@ -18,8 +19,10 @@ internal static class DependencyInjection
             options.UseNpgsql(connectionString).UseQueryLocks());
         builder.Services.Configure<CommissionsOptions>(builder.Configuration.GetSection(CommissionsOptions.SectionName));
         builder.Services.Configure<UsersGrpcOptions>(builder.Configuration.GetSection(UsersGrpcOptions.SectionName));
+        builder.Services.Configure<MetricsOptions>(builder.Configuration.GetSection(MetricsOptions.SectionName));
         builder.Services.AddSingleton<IUtcTime, UtcTime>();
         builder.Services.AddSingleton<ICommissionCalculator, CommissionCalculator>();
+        builder.Services.AddSingleton<ICommissionsMetrics, CommissionsMetrics>();
         builder.Services.AddScoped<ICommissionRepository, CommissionRepository>();
         builder.Services.AddScoped<IPartnerLookup, PartnerLookupGateway>();
         builder.Services.AddScoped<ICommissionsService, CommissionsService>();
@@ -35,6 +38,7 @@ internal static class DependencyInjection
         builder.Services.AddGrpc();
         builder.Services.AddExceptionHandler<DomainExceptionHandler>();
         builder.Services.AddProblemDetails();
+        builder.Services.AddPrometheusMetrics(RequireMeterName(builder.Configuration));
         return builder;
     }
 
@@ -43,5 +47,31 @@ internal static class DependencyInjection
         await using var app = builder.Build();
         await using var scope = app.Services.CreateAsyncScope();
         await scope.ServiceProvider.GetRequiredService<CommissionsDbContext>().Database.MigrateAsync();
+    }
+
+    private static string RequireMeterName(IConfiguration configuration)
+    {
+        var key = $"{MetricsOptions.SectionName}:{nameof(MetricsOptions.MeterName)}";
+        var meterName = configuration[key];
+        if (string.IsNullOrWhiteSpace(meterName))
+        {
+            throw new InvalidOperationException($"{key} is missing.");
+        }
+
+        return meterName;
+    }
+
+    private static void AddPrometheusMetrics(this IServiceCollection services, string meterName)
+    {
+        services.AddOpenTelemetry()
+            .WithMetrics(metrics =>
+            {
+                metrics
+                    .AddMeter(meterName)
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation()
+                    .AddPrometheusExporter();
+            });
     }
 }

@@ -13,7 +13,8 @@ public sealed class CommissionsService(
     IUtcTime utcTime,
     ICommissionCalculator calculator,
     IOptions<CommissionsOptions> options,
-    ILogger<CommissionsService> logger) : ICommissionsService
+    ILogger<CommissionsService> logger,
+    ICommissionsMetrics metrics) : ICommissionsService
 {
     public async Task<(EventDetails Details, bool Created)> AcceptAsync(
         Guid operationId,
@@ -72,6 +73,7 @@ public sealed class CommissionsService(
         }
 
         logger.EventAccepted(operationId, ownerExternalId, profit, accrued.Count);
+        metrics.EventAccepted(accrued.Count);
         return (ToDetails(profitEvent, accrued), Created: true);
     }
 

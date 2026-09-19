@@ -158,6 +158,7 @@ public sealed class CommissionsServiceTests
             clock,
             new CommissionCalculator(),
             Microsoft.Extensions.Options.Options.Create(new CommissionsOptions()),
-            NullLogger<CommissionsService>.Instance);
+            NullLogger<CommissionsService>.Instance,
+            Substitute.For<ICommissionsMetrics>());
     }
 }

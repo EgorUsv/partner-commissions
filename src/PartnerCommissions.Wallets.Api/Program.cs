@@ -1,3 +1,4 @@
+using OpenTelemetry.Metrics;
 using PartnerCommissions.Wallets.Api.Endpoints;
 using PartnerCommissions.Wallets.Api.Hosting;
 
@@ -14,4 +15,5 @@ var app = builder.Build();
 app.UseExceptionHandler();
 app.MapWalletsApi();
 app.MapHealthApi();
+app.MapPrometheusScrapingEndpoint();
 app.Run();
