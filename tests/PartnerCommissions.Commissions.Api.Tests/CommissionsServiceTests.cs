@@ -106,6 +106,24 @@ public sealed class CommissionsServiceTests
     }
 
     [Fact]
+    public async Task Accept_response_rounds_money_to_numeric_18_8()
+    {
+        var service = CreateService(Repository(SchemaType.Linear));
+
+        var (details, created) = await service.AcceptAsync(
+            Guid.NewGuid(),
+            OwnerId,
+            1.23456789m,
+            CancellationToken.None);
+
+        Assert.True(created);
+        Assert.Equal(1.23456789m, details.Event.Profit);
+        Assert.Equal(
+            [0.01234568m, 0.02469136m, 0.03703704m],
+            details.Commissions.Select(x => x.Amount));
+    }
+
+    [Fact]
     public async Task Accept_replay_returns_the_existing_event_without_accruing_again()
     {
         var operationId = Guid.NewGuid();
