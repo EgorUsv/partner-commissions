@@ -174,14 +174,14 @@ public sealed class CommissionsService(
             new ProfitEvent(
                 profitEvent.OperationId,
                 profitEvent.OwnerExternalId,
-                profitEvent.Profit,
+                profitEvent.Profit.ToMoney(),
                 profitEvent.CreatedAt),
             rows.Select(x => new AccruedCommission(
                 x.Id,
                 profitEvent.OperationId,
                 x.PartnerExternalId,
                 x.Level,
-                x.Amount,
+                x.Amount.ToMoney(),
                 x.SchemaType,
                 x.PaidAt)).ToList());
     }
